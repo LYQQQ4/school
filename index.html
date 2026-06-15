@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0;
+            padding: 0;
+        }
+        .container{
+            width: 1200px;
+            margin: 0 auto; 
+        }
+        .header{
+            background-color: #f8faff;
+            margin-bottom: 10px;
+            position: fixed;
+            width: 100%;
+            top:0;
+            z-index: 9999;
+        }
+        .header .container {
+            height: 70px;
+            background-color: #eff0f4;
+            display: flex;           
+            align-items: center;     
+            justify-content: space-between;  
+        }
+        .header h1 {
+            margin-bottom: 5px;
+            font-size: 28px;
+        }
+        
+        .header h3 {
+            margin-top: 0;
+            font-size: 14px;
+            font-weight: normal;
+            letter-spacing: 1px;  
+        }
+        .header a:hover {
+            color: #333;       
+            text-decoration: underline;
+        }
+        .main{
+            margin-top: 50px;
+        }
+        .main .container{
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+        .left{
+            float: none;
+            width: 600px;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            margin:0;
+            padding:0;
+            line-height: 0;
+        }
+        .left h3 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
+            padding: 40px 20px 20px 20px;   
+            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.4), transparent);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4;
+            pointer-events: none;          
+        }
+        .left .news-image{
+            width: 100%;
+            height :280px;
+            background-image: url('left.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .left .news-title {
+            background-color: #fa6b6b;
+            padding: 15px;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .right {
+            float: none;
+            width: auto;
+            height: auto;
+            background-color: transparent;margin-bottom: 0;
+        }
+        .right-group {
+            flex: 1;            
+            display: flex;
+            gap: 20px;          
+            align-items: flex-start;
+        }
+        .right-card {
+            width: 260px;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            height: 280px;
+            transition: transform 0.2s;
+        }
+        .right-card:hover {
+            transform: translateY(-3px);
+        }
+        .right-card:first-child::after {
+            content: '';
+            position: absolute;
+            right: -10px;          
+            top: 10%;
+            height: 80%;
+            width: 2px;
+            background: #ddd;border-radius: 2px;
+        }
+        
+        .right-card .card-image {
+            width: 100%;
+            height: 180px;        
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+        }
+        .right-card .card-text {
+            flex: 1;                   
+            padding: 12px 12px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; 
+            box-sizing: border-box;
+        }
+        .right-card .card-text h4 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: #1e2f5e;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .right-card .card-text h5 {
+            margin: 0;
+            font-size: 12px;
+            font-weight: normal;
+            color: #7f8c8d;
+            letter-spacing: 0.3px;
+        }
+        .right-card:first-child::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 10%;
+            height: 80%;
+            width: 2px;
+            background: #ddd;
+            border-radius: 2px;
+        }
+        .footer{
+            clear: both;
+            background-color: #7d7d7e;
+        }
+        .footer .container{
+            background-color: #313131;
+            height: 40px;
+        }
+        .goback{
+            width: 40px;
+            height: 40px;
+            background-color: #313131;
+            position: fixed;
+            right:20px;
+            bottom: 20px;
+            border-radius: 50%;
+        }
+       .second-row {
+        margin-top: 40px;
+        }
+        .second-row .left-cards {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .swap-card {
+            flex: 1;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            height: 280px;
+            transition: transform 0.2s;
+        }
+        .swap-card:hover {
+            transform: translateY(-3px);
+        }
+        .swap-card .card-image {
+            width: 100%;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+        }
+        .swap-card .card-text {
+            flex: 1;
+            padding: 12px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .swap-card .card-text h4 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: #1e2f5e;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .swap-card .card-text h5 {
+            margin: 0;
+            font-size: 12px;
+            font-weight: normal;
+            color: #7f8c8d;
+        }
+        .swap-card:first-child::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 10%;
+            height: 80%;
+            width: 2px;
+            background: #ddd;
+            border-radius: 2px;
+        }
+        .second-row .left {
+            flex: 1;
+            width: auto;
+        }
+        .third-row {
+            margin-top: 40px;
+        }
+        .third-row .two-columns {
+            display: flex;
+            gap: 24px;     
+            justify-content: space-between;         
+        }
+        .third-row .col {
+            width: 590px;            
+            background-color: #fff;
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .third-row .col-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e2f5e;
+            padding: 20px 12px 12px 20px;
+            margin: 0;
+            border-bottom: 3px solid #7fa4f3;
+            background-color: #fff;
+        }
+        .third-row .media-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 12px 16px 20px;
+            align-items: center;
+            transition: transform 0.2s;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .third-row .media-item:hover {
+            transform: translateX(5px);
+            background-color: #fafbfd;
+        }
+        .third-row .item-img {
+            width: 200px;
+            height: 80px;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            background-color: #eef2f7;  
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .third-row .item-text {
+            flex: 1;
+        }
+        .third-row .item-text h4 {
+            margin: 0 0 6px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e2f5e;
+            line-height: 1.4;
+        }
+        .third-row .item-text p {
+            margin: 0;
+            font-size: 13px;
+            color: #5a6874;
+            line-height: 1.4;
+        }
+        .third-row .media-item:last-child {
+            border-bottom: none;
+        }
+        .third-row .col:last-child {
+            width: 580px;
+            margin-right: 0;                
+        }
+        .fourth-row {
+            margin-top: 40px;
+        }
+        .fourth-row .three-columns {
+            display: flex;
+            gap: 24px;              
+            align-items: flex-start;
+        }
+        .fourth-row .col {
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+            width: 384px;           
+        }
+        .fourth-row .col-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e2f5e;
+            padding: 20px 20px 12px 20px;
+            margin: 0;
+            border-bottom: 3px solid #7fa4f3;
+            background-color: #fff;
+        }
+        .fourth-row .media-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 16px;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+        .fourth-row .media-item:hover {
+            background-color: #fafbfd;
+        }
+        .fourth-row .item-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            background-color: #eef2f7;
+            flex-shrink: 0;
+        }
+        .fourth-row .item-text {
+            flex: 1;
+        }
+        .fourth-row .item-text h4 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e2f5e;
+            line-height: 1.4;
+        }
+        .fourth-row .item-text p {
+            margin: 0;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        .fourth-row .col:nth-child(2) {
+                display: flex;
+                flex-direction: column;
+                height: auto;           
+        }
+        .second-col-image {
+            width: 100%;
+            height: 0;
+            padding-bottom: 70%;    
+            background-size: cover;
+            background-position: center;
+            background-color: #d9e2ef;
+            position: relative;
+        }
+        .second-col-text {
+            padding: 20px;
+            background-color: #fff;
+        }
+        .second-col-text h4 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e2f5e;
+        }
+        .second-col-text p {
+            margin: 0;
+            font-size: 14px;
+            color: #5a6874;
+            line-height: 1.5;
+        }
+        .third-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 20px;
+        }
+        .grid-item {
+            background-color: #f5f7fb;
+            border-radius: 12px;
+            padding: 16px 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .grid-item:hover {
+            background-color: #e74c3c;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .third-col-grid + .col-title {
+            margin-bottom: 0;
+        }
+        .fourth-row .media-item {
+            position: relative;    
+        }
+        .fourth-row .item-img {
+
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;       
+            background-color: #e74c3c;  
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background-size: auto;
+            background-position: unset;   
+        }
+        .fourth-row .item-img .date-number {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.2;    
+        }
+        .fifth-row {
+            margin-top: 20px;
+            background-color: #aed5f8;   
+            border-radius: 16px;
+            padding: 16px 32px;
+            color: rgb(20, 6, 6);
+        }
+        .fifth-row .grid-container {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-template-rows:  repeat(4, auto);
+            gap: 8px 40px;
+            align-items: start;
+        }
+        .left-line1 {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+        .left-line2 {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+        }
+        .left-line3 {
+            grid-column: 1 / 2;
+            grid-row: 3 / 4;
+        }
+        .left-line4 {
+            grid-column: 1 / 2;
+            grid-row: 4 / 5;
+        }
+        .right-line1 {
+            grid-column: 2 / 3;
+            grid-row: 3 / 4;
+            text-align: right;
+        }
+        .right-line2 {
+            grid-column: 2 / 3;
+            grid-row: 4 / 5;
+            text-align: right;
+        }
+        .fifth-row p {
+            margin: 0;
+            line-height: 1.4;
+            font-size: 14px;
+        }   
+        @media (max-width: 1000px) {
+            .container {
+                width: 95%;
+                margin: 0 auto;
+            }
+            .main .container,
+            .second-row,
+            .third-row .two-columns,
+            .fourth-row .three-columns,
+            .fifth-row .grid-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .left,
+            .right-group,
+            .second-row .left-cards,
+            .second-row .left,
+            .third-row .col,
+            .fourth-row .col {
+                width: 100% !important;
+            }
+
+            .right-group {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+            }
+            .right-group .right-card {
+                width: calc(50% - 10px);
+            }
+
+            .second-row .left-cards {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+            }
+            .second-row .left-cards .swap-card {
+                width: calc(50% - 10px);
+            }
+
+            .third-row .two-columns {
+                display: flex;
+                flex-direction: column;
+            }
+            .third-row .col {
+                margin-bottom: 20px;
+            }
+
+            .fourth-row .three-columns {
+                display: flex;
+                flex-direction: column;
+            }
+            .fourth-row .col {
+                margin-bottom: 20px;
+            }
+
+            .fifth-row .grid-container {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .fifth-row .right-line1,
+            .fifth-row .right-line2 {
+                text-align: left;
+            }
+
+
+            .header .container {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 10px;
+                justify-content: center;
+                gap: 8px;
+            }
+            .header .logo {
+                text-align: center;
+                width: 100%;
+            }
+            .header a {
+                margin: 0 8px;
+            }
+
+            .main {
+                margin-top: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+    <div class="container">
+        <div class="logo">           
+            <h1>上海对外经贸大学</h1>
+            <h3>SHANGHAI UNIVERSITY OF INTERNATIONAL BUSINESS AND ECONOMICS</h3>
+        </div>
+        <a href="xuexiaogaikuang">学校概况</a>
+        <a href="jigoushezhi">机构设置</a>
+        <a href="shiziduiwu">师资队伍</a>
+        <a href="kexueyanjiu">科学研究</a>
+        <a href="rencaipeiyang">人才培养</a>
+        <a href="zhaoshengjiuye">招生就业</a>
+        <a href="guojijiaoliu">国际交流</a>
+        <a href="gongkaishixiang">公开事项</a>
+    </div>
+    </div>
+    <div class="main">
+        <div class="main">
+            <div class="container">
+                <div class="left">
+            <div class="news-image"></div>
+            <h3>学校召开2025年度招生就业工作总结表彰大会暨2026年招生就业工作推进会</h3>
+        </div>
+        <div class="right-group">
+            <div class="right-card">
+                <div class="card-image" style="background-image: url('chinesemonth.jpg');"></div>
+                <div class="card-text">
+                    <h4>上海对外经贸大学第三届“国际中文月”启动仪式顺利举行</h4>
+                    <h5>2026-04-21</h5>
+                </div>
+            </div>
+            <div class="right-card">
+                <div class="card-image" style="background-image: url('work.jpg');"></div>
+                <div class="card-text">
+                    <h4>中国现场统计研究会实验设计分会2026年常务理事会议暨学术研讨会在我校举行</h4>
+                    <h5>2026-04-20</h5>
+                </div>
+            </div>
+        </div>
+            </div>
+    <div class="container second-row">
+        <div class="left-cards">
+            <div class="swap-card">
+                <div class="card-image" style="background-image: url('2026meeting.jpg');"></div>
+                <div class="card-text">
+                    <h4>我校获批2026年中国政府奖学金国际暑期学校项目</h4>
+                    <h5>2026-04-21</h5>
+                </div>
+            </div>
+            <div class="swap-card">
+                <div class="card-image" style="background-image: url('summer_program.jpg');"></div>
+                <div class="card-text">
+                    <h4>全国政协常委周汉民教授出席上经贸大“中国‘入世’25年25讲”系列讲座启动仪式并作首场讲座</h4>
+                    <h5>2026-04-21</h5>
+                </div>
+            </div>
+        </div>
+        <div class="left">
+            <div class="news-image" style="background-image: url('reform.jpg');"></div>
+            <h3>学校召开综合改革领导小组扩大会议暨综合改革工作推进会</h3>
+        </div>
+    </div>
+</div>
+    <div class="container third-row">
+        <div class="two-columns">
+            <div class="col">
+            <div class="col-title">媒体报道</div>
+            <div class="media-item">
+                <div class="item-img" style="background-image: url('competition.jpg');"></div>
+                <div class="item-text">
+                    <h4>“劳动最美，匠心风味”，上海对外经贸大学举办第一届教职工厨艺大赛</h4>
+                    <p>2026-04-21 &nbsp;|&nbsp; 国际交流处</p>
+                </div>
+            </div>
+            <div class="media-item">
+                <div class="item-img" style="background-image: url('reform.jpg');"></div>
+                <div class="item-text">
+                    <h4>“经济学视角下的区域国别学学科建设”圆桌论坛在上海对外经贸大学举行</h4>
+                    <p>2026-04-20 &nbsp;|&nbsp; 上海教育资讯</p>
+                </div>
+            </div>
+            <div class="media-item">
+                <div class="item-img" style="background-image: url('education.jpg');"></div>
+                <div class="item-text">
+                    <h4>上海对外经贸大学会计学院在求职季做精“大思政课”</h4>
+                    <p>2026-04-20 &nbsp;|&nbsp; 上海教育资讯</p>
+                </div>
+            </div>
+            <div class="media-item">
+                <div class="item-img" style="background-image: url('pengpai.jpg');"></div>
+                <div class="item-text">
+                    <h4>夜读｜月亮一直追着我跑</h4>
+                    <p>2026-04-08 &nbsp;|&nbsp; 澎湃</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="col-title">媒体报道</div>
+            <div class="media-item">
+                <div class="item-img" style="background-image: url('huanqiu.jpg');"></div>
+                <div class="item-text">
+                    <h4>詹德斌：韩国真的在“转向”印度吗？</h4>
+                    <p>2026-04-14 &nbsp;|&nbsp; 环球网</p>
+                </div>
+            </div>
+            <div class="media-item">
+                <div class="item-img" style="background-image: url('reform.jpg');"></div>
+                <div class="item-text">
+                    <h4>上海对外经贸大学：深化“党建搭台、业务唱戏”党建联建机制，以组织优势赋能产教融合、校地协同高质量发展</h4>
+                    <p>2026-04-11 &nbsp;|&nbsp; 上海教育资讯</p>
+                </div>
+            </div>
+            <div class="media-item">
+                <div class="item-img" style="background-image: url('xinming.jpg');"></div>
+                <div class="item-text">
+                    <h4>@全市大中小学生，这张阅读地图请收藏！去书店图书馆博物馆读书吧</h4>
+                    <p>2026-04-09 &nbsp;|&nbsp; 新民晚报</p>
+                </div>
+            </div>
+            <div class="media-item">
+                <div class="item-img" style="background-image: url('kankan.jpg');"></div>
+                <div class="item-text">
+                    <h4>市教卫工作党委 深学真查实改 推动学习教育走深走实见行见效</h4>
+                    <p>2026-04-07 &nbsp;|&nbsp; 看看新闻</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container fourth-row">
+        <div class="three-columns">
+            <div class="col">
+                <div class="col-title">科研动态</div>
+                <div class="media-item">
+                    <div class="item-img">
+                        <span class="date-number">04-18</span>
+                    </div>
+                    <div class="item-text">
+                        <h4>国家社科基金重大项目开题报告会举行</h4>
+                        <p>2026-04-18 &nbsp;|&nbsp;科研处</p>
+                    </div>
+                </div>
+                <div class="media-item">
+                    <div class="item-img">
+                        <span class="date-number">04-15</span>
+                    </div>
+                    <div class="item-text">
+                        <h4>我校教师在国际顶级期刊发表论文</h4>
+                        <p>2026-04-15 &nbsp;|&nbsp; 统计与数据科学学院</p>
+                    </div>
+                </div>
+                <div class="media-item">
+                    <div class="item-img">
+                        <span class="date-number">04-12</span>
+                    </div>
+                    <div class="item-text">
+                        <h4>数字经济实验室获批上海市重点实验室</h4>
+                        <p>2026-04-12 &nbsp;|&nbsp; 科研处</p>
+                    </div>
+                </div>
+                <div class="media-item">
+                    <div class="item-img">
+                        <span class="date-number">04-10</span>
+                    </div>
+                    <div class="item-text">
+                        <h4>2026年青年学者论坛征稿启事</h4>
+                        <p>2026-04-10 &nbsp;|&nbsp; 研究生院</p>
+                    </div>
+                </div>
+                <div class="media-item">
+                    <div class="item-img">
+                        <span class="date-number">04-08</span>
+                    </div>
+                    <div class="item-text">
+                        <h4>产学研合作签约仪式成功举办</h4>
+                        <p>2026-04-08 &nbsp;|&nbsp; 技术转移中心</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col-title">焦点专题</div>
+                <div class="second-col-image" style="background-image: url('feature.jpg');"></div>
+                <div class="second-col-text">
+                    <h4>上海对外经贸大学校庆60周年宣传片</h4>
+                    <p>青春不散场，梦想正启航。系列报道持续更新中…</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col-title">专题网站</div>
+                <div class="third-col-grid">
+                    <div class="grid-item">文明在线</div>
+                    <div class="grid-item">图书馆</div>
+                    <div class="grid-item">二十大专题网</div>
+                    <div class="grid-item">博物馆</div>
+                    <div class="grid-item">校庆网</div>
+                    <div class="grid-item">就业服务</div>
+                    <div class="grid-item">校历</div>
+                    <div class="grid-item">班车时刻</div>
+                    <div class="grid-item">报修服务</div>
+                    <div class="grid-item">心理咨询</div>
+                    <div class="grid-item">就业信息</div>
+                    <div class="grid-item">校友服务</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container fifth-row">
+        <div class="grid-container">
+            <p class="left-line1">上海对外经贸大学致力于培养国际经贸人才</p>
+            <p class="left-line2">学校拥有松江、古北、七宝三个校区</p>
+            <p class="left-line3">现有在校学生12000余人，教职工1000余人</p>
+            <p class="left-line4">2026年新增数字经济、金融科技等本科专业</p>
+            <p class="right-line1">地址：上海市松江区文翔路1900号</p>
+            <p class="right-line2">电话：021-67703000</p>
+        </div>
+    </div>
+</div>
+</div>
+    <div class="footer">
+        <div class="container"></div>
+    </div>
+    <div class="goback"></div>
+</body>
+</html>
